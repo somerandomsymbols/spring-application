@@ -24,8 +24,9 @@ public class StudentRepositoryTests {
     {
         Student student = new Student();
 
-        student.setFirstName("Cyka");
-        student.setLastName("Pidor");
+        student.setFirstName("Dmytro");
+        student.setLastName("Refactor");
+        student.setEmail("Dmytro.refactor@gmail.com");
 
         Student savedStudent = repo.save(student);
 
@@ -49,7 +50,7 @@ public class StudentRepositoryTests {
     public void testUpdate()
     {
         Integer studentId = 3;
-        String firstName = "Natural";
+        String firstName = "Vanya";
         Optional<Student> optionalStudent = repo.findById(studentId);
         Student student = optionalStudent.get();
         student.setFirstName(firstName);
@@ -71,10 +72,11 @@ public class StudentRepositoryTests {
     @Test
     public void testDelete()
     {
-        Integer studentId = 3;
+        Integer studentId = 8;
         repo.deleteById(studentId);
 
         Optional<Student> optionalStudent = repo.findById(studentId);
         assertThat(optionalStudent).isNotPresent();
+
     }
 }
