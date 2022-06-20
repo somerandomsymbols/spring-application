@@ -4,6 +4,19 @@
     <meta charset="UTF-8">
     <title>Manage Students</title>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <script>
+        function confirmDelete() {
+            var checkBox = document.getElementById("confirmDelete");
+            var list = document.getElementsByClassName("deleteButton");
+
+            if (checkBox.checked == true){
+                Array.prototype.forEach.call(list, element => element.style.display = "inline");
+            } else {
+                Array.prototype.forEach.call(list, element => element.style.display = "none");
+            }
+        }
+    </script>
+
 </head>
 <body>
 <div class="container-fluid text-center">
@@ -13,7 +26,7 @@
     </div>
 
     <div th:if="@{message}">
-        <div class="alert alert-success text-center">[[${message}]]</div>
+        <div cls="aleasrt alert-success text-center">[[${message}]]</div>
     </div>
     <div>
         <style>
@@ -21,6 +34,10 @@
                 width: 100%;
             }
         </style>
+        <div>
+            <h4><input type="checkbox" id="confirmDelete" onclick="confirmDelete()" >
+            <label for="confirmDelete">Delete</label></h4>
+        </div>
         <table class="table-bordered">
             <thead class="table-dark">
             <tr>
@@ -39,13 +56,15 @@
                     <td><h4>[[${student.lastName}]]</h4></td>
                     <td><h4>[[${student.email}]]</h4></td>
                     <td>
+                        <a class="h4 mr-3" th:href="@{'/students/journals/' + ${student.id}}">Journal</a>
                         <a class="h4 mr-3" th:href="@{'/students/edit/' + ${student.id}}">Edit</a>
-                        <a class="h4" th:href="@{'/students/delete/' + ${student.id}}">Delete</a>
+                        <a class="h4 mr-3 deleteButton" th:href="@{'/students/delete/' + ${student.id}}" style="display: none;">Delete</a>
                     </td>
                 </tr>
             </th:block>
             </tbody>
         </table>
+
     </div>
 </div>
 </body>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Manage Journal</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+  <script>
+    function confirmDelete() {
+      var checkBox = document.getElementById("confirmDelete");
+      var list = document.getElementsByClassName("deleteButton");
+
+      if (checkBox.checked == true){
+        Array.prototype.forEach.call(list, element => element.style.display = "inline");
+      } else {
+        Array.prototype.forEach.call(list, element => element.style.display = "none");
+      }
+    }
+  </script>
+
+</head>
+<body>
+<div class="container-fluid text-center">
+  <div><h2>Manage Journal</h2></div>
+  <div class="m-2">
+    <a class="h3" th:href="@{'/journals/new_journal/' + ${studentId}}">Add new journal</a>
+  </div>
+
+  <div th:if="@{message}">
+    <div cls="aleasrt alert-success text-center">[[${message}]]</div>
+  </div>
+  <div>
+    <style>
+      table {
+        width: 100%;
+      }
+    </style>
+    <div>
+      <h4><input type="checkbox" id="confirmDelete" onclick="confirmDelete()" >
+        <label for="confirmDelete">Delete</label></h4>
+    </div>
+    <table class="table-bordered">
+      <thead class="table-dark">
+      <tr>
+        <th><h3>    ID    </h3></th>
+        <th><h3>    Discipline Name    </h3></th>
+        <th><h3>    Professor Name    </h3></th>
+        <th><h3>    Mark    </h3></th>
+        <th><h3>   </h3></th>
+      </tr>
+      </thead>
+      <tbody>
+      <th:block th:each="journal : ${listJournal}">
+        <tr>
+          <td><h4>[[${journal.id}]]</h4></td>
+          <td><h4>[[${journal.disciplineName}]]</h4></td>
+          <td><h4>[[${journal.professorName}]]</h4></td>
+          <td th:if="${journal.mark} < 60" bgcolor="red"><h4>[[${journal.mark}]]</h4></td>
+          <td th:if="${journal.mark} > 59" bgcolor="green"><h4>[[${journal.mark}]]</h4></td>
+          <td>
+            <a class="h4 mr-3" th:href="@{'/journals/edit/' + ${journal.id}}">Edit</a>
+            <a class="h4 mr-3 deleteButton" th:href="@{'/journals/delete/' + ${journal.id}}" style="display: none;">Delete</a>
+          </td>
+        </tr>
+      </th:block>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+</body>
+</html>

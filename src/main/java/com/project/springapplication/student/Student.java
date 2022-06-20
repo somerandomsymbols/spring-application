@@ -1,6 +1,9 @@
 package com.project.springapplication.student;
 
+import com.project.springapplication.journal.Journal;
+
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "students")
@@ -17,6 +20,12 @@ public class Student {
 
     @Column(nullable = false, length = 45, unique = true)
     private String email;
+
+
+
+    @OneToMany
+    @JoinColumn(name = "studentid", referencedColumnName = "id")
+    private Set<Journal> journals;
 
     public String getEmail() {
         return email;
@@ -47,6 +56,14 @@ public class Student {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Set<Journal> getJournals() {
+        return journals;
+    }
+
+    public void setJournals(Set<Journal> journals) {
+        this.journals = journals;
     }
 
     @Override
