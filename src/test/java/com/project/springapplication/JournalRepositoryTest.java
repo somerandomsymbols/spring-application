@@ -24,12 +24,12 @@ public class JournalRepositoryTest {
     @Test
     public void testAddNew()
     {
-        Student student = repoStudent.findById(6).get();
+        Student student = repoStudent.findById(8).get();
         Journal journal = new Journal();
 
         journal.setStudentId(student);
-        journal.setDisciplineName("Parasha");
-        journal.setProfessorName("Pituh");
+        journal.setDisciplineName("Programming");
+        journal.setProfessorName("Stavr");
         journal.setMark(60);
 
         Journal savedJournal = repo.save(journal);
